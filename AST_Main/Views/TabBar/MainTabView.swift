@@ -8,11 +8,24 @@
 import SwiftUI
 
 struct MainTabView: View {
+    let user: User
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TabView {
+            HomeView(user: user)
+                .tabItem {
+                    Image(systemName: "house")
+                }
+            TrackView(user: user)
+                .tabItem { Image(systemName: "plus.square") }
+            Text("Profile & Settings")
+                .tabItem {
+                    Image(systemName: "person")
+                }
+            
+        }
     }
 }
 
 #Preview {
-    MainTabView()
+    MainTabView(user: User.MOCK_USER)
 }
