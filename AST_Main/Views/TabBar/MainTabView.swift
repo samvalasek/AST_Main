@@ -17,7 +17,7 @@ struct MainTabView: View {
                 }
             TrackView(user: user)
                 .tabItem { Image(systemName: "plus.square") }
-            Text("Profile & Settings")
+            Text("Profile")
                 .tabItem {
                     Image(systemName: "person")
                 }
@@ -27,5 +27,5 @@ struct MainTabView: View {
 }
 
 #Preview {
-    MainTabView(user: User.MOCK_USER)
+    MainTabView(user: User.MOCK_USERS[0])
 }

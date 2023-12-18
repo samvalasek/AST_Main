@@ -33,6 +33,7 @@ class AuthenticationService {
             let result = try await Auth.auth().signIn(withEmail: email, password: password) //attempts to sign the user in, using the information inserted into the fields.
             self.userSession = result.user //sets the current user session Instance to the user pulled from the data base.
             try await fetchUserData() //calls the fetch user data function to fetch the users data
+            print("DEBUG: Signed User In, USER SESSION \(userSession)")
         } catch { //catches any errors in the code block above
             print("!! DEBUG: Failed to sign in user with error \(error.localizedDescription)") //prints appropriate debug message to console
         }
@@ -44,7 +45,7 @@ class AuthenticationService {
             let result = try await Auth.auth().createUser(withEmail: email, password: password) //attempts to create a user via firebase authentication
             self.userSession = result.user //sets the current user session to the user created in the line above
             print("!! DEBUG: Did create user")
-            await uploadUserData(uid: result.user.uid, fullName: fullName, email: email, Form: form) //attempts to create a user object in the firebase database (where user metadata is stored).
+            await uploadUserData(uid: result.user.uid, fullName: fullName, email: email, Form: form, userType: 0) //attempts to create a user object in the firebase database (where user metadata is stored).
             print("!! DEBUG: Did upload user")
         } catch {  print("!! DEBUG: Failed to register user with error \(error.localizedDescription)") /*prints appropriate error message*/ }
     }
@@ -68,8 +69,8 @@ class AuthenticationService {
         
     }
     
-    private func uploadUserData(uid: String, fullName: String, email: String, Form: String) async { //uploads the user database to the firebase database
-        let user = User(id: uid, fullName: fullName, email: email, form: Form) //creates a user object to upload
+    private func uploadUserData(uid: String, fullName: String, email: String, Form: String, userType: Int) async { //uploads the user database to the firebase database
+        let user = User(id: uid, fullName: fullName, email: email, form: Form, userType: userType) //creates a user object to upload
         self.currentUser = user //sets the current application user object to the above user
         guard let encodedUser = try? Firestore.Encoder().encode(user) else { return } //encodes the data so it can be stored in a form that firebase will recognise
         try? await Firestore.firestore().collection("users").document(user.id).setData(encodedUser) //Attempts to upload the data to the "users" collection with the document id of the current user's ID.

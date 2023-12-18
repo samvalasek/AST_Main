@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct AddPasswordView: View {
-    @State private var password = ""
     @State private var confirmPassword = ""
+    @EnvironmentObject var viewModel: RegistrationViewModel
     @Environment(\.dismiss) var dismiss
     var body: some View {
         VStack(spacing: 12) {
@@ -19,7 +19,7 @@ struct AddPasswordView: View {
                 .padding(.top)
             Text("Choose your own unique password, you'll need this to log in. It must contain at least 6 characters.")
                 .modifier(DescriptorModifier())
-            TextField("Enter your password", text: $password)
+            TextField("Enter your password", text: $viewModel.password)
                 .textInputAutocapitalization(.none)
                 .font(.subheadline)
                 .padding(12)

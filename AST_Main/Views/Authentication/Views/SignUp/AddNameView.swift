@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct AddNameView: View {
-    @State private var fullName = ""
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var viewModel: RegistrationViewModel
+    
     var body: some View {
         VStack(spacing: 12) {
             Text("Enter your name")
@@ -18,7 +19,7 @@ struct AddNameView: View {
                 .padding(.top)
             Text("You'll need to use your full name, so we can recognise you.")
                 .modifier(DescriptorModifier())
-            TextField("Enter your name", text: $fullName)
+            TextField("Enter your name", text: $viewModel.fullName)
                 .textInputAutocapitalization(.none)
                 .font(.subheadline)
                 .padding(12)
@@ -27,6 +28,7 @@ struct AddNameView: View {
                 .padding(.horizontal, 24)
             NavigationLink {
                 AddEmailView()
+                    .navigationBarBackButtonHidden(true)
             } label: {
                 LoginButton(text: "Continue", foregroundColor: .white, backgroundColor: Color(.systemBlue))
             }

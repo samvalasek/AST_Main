@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var password: String = ""
+    @StateObject var viewModel = ContentViewViewModel()
+    @StateObject var registrationViewModel = RegistrationViewModel()
     var body: some View {
-        VStack {
-            Text("Content View")
+        if viewModel.userSession == nil {
+            LoginMultiViewQR()
+                .environmentObject(registrationViewModel)
+        } else if let currentUser = viewModel.currentUser {
+            MainTabView(user: currentUser)
         }
-        .padding()
+        
     }
 }
 

@@ -7,12 +7,14 @@
 
 import SwiftUI
 
-struct RegistrationModifiers: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+struct DescriptorModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.footnote)
+            .foregroundStyle(.gray)
+            .multilineTextAlignment(.center)
+            .padding(.horizontal)
+            .padding(.bottom)
+        
     }
-}
-
-#Preview {
-    RegistrationModifiers()
 }

@@ -11,11 +11,13 @@ struct LoginMultiViewQR: View {
     /*
      Variables
      */
-    @State private var email = "" //Creates an email variable, with the default value of an empty string.
-    @State private var password = "" //Creates a password variable, with the default value of an empty string
+    @StateObject var viewModel = LoginViewModel()
+    
+    /*
+     Body
+     */
     var body: some View {
-        //logo Image
-        NavigationStack {
+        NavigationStack {//navigationstacks allow for child views to be "stacked" on top of one another.
             VStack {
                 Spacer()
                 Image("ASTLogoWhiteRounded")
@@ -25,8 +27,8 @@ struct LoginMultiViewQR: View {
                     .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 //text fields
                 VStack {
-                    LoginInputBox(text: $email, title: "Email", placeholder: "hello@ashfield.com")
-                    LoginInputBox(text: $password, title: "Password", placeholder: "Enter your password", isSecureField: true)
+                    LoginInputBox(text: $viewModel.email, title: "Email", placeholder: "hello@ashfield.com")
+                    LoginInputBox(text: $viewModel.password, title: "Password", placeholder: "Enter your password", isSecureField: true)
                 }
                 .padding(.horizontal, 24)
                 
@@ -41,7 +43,13 @@ struct LoginMultiViewQR: View {
                         
                 }
                 .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .trailing)
-                LoginButton(text: "Log In", foregroundColor: .white, backgroundColor: .blue)
+                Button {
+                    Task {
+                        try await viewModel.signIn()
+                    }
+                } label: {
+                    LoginButton(text: "Log In", foregroundColor: .white, backgroundColor: .blue)
+                }
                 
                 HStack {
                     Rectangle()
@@ -57,7 +65,7 @@ struct LoginMultiViewQR: View {
                 }
                 
                 Button {
-                    //sign in with qr
+                    // sign in with qr
                 } label: {
                     HStack {
                         ZStack {

@@ -24,8 +24,8 @@ struct AddFormView: View {
         Forms(code: "13HUH", tutor: "Miss X"),
         Forms(code: "13LOL", tutor: "Mr Lol.")
     ]
-    @State private var form = "13SMI"
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var viewModel: RegistrationViewModel
     
     /*
      View
@@ -39,14 +39,15 @@ struct AddFormView: View {
                 
                 Text("Use the selector to choose your form group.")
                     .modifier(DescriptorModifier())
-            Picker("Form", selection: $form) {
+            Picker("Form", selection: $viewModel.Form) {
                 ForEach(tutors, id: \.code) {
                     Text("\($0.code) (\($0.tutor))")
                 }
             }
             .pickerStyle(.wheel)
-                Button {
-                    print(form)
+                NavigationLink {
+                    WecomeView()
+                        .navigationBarBackButtonHidden(true)
                 } label: {
                     LoginButton(text: "Continue", foregroundColor: .white, backgroundColor: Color(.systemBlue))
                 }

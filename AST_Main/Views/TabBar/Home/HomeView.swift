@@ -8,11 +8,16 @@
 import SwiftUI
 
 struct HomeView: View {
+    let user: User
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            UsernameBar(user: user)
+            BarChart()
+            Spacer()
+        }
     }
 }
 
 #Preview {
-    HomeView()
+    HomeView(user: User.MOCK_USERS[0])
 }

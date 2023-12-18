@@ -28,5 +28,5 @@ struct AdminTabView: View {
 }
 
 #Preview {
-    AdminTabView(user: User.MOCK_USER)
+    AdminTabView(user: User.MOCK_USERS[0])
 }

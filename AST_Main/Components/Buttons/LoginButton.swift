@@ -6,13 +6,22 @@
 //
 
 import SwiftUI
+import SwiftUI
 
 struct LoginButton: View {
+    var text: String
+    var foregroundColor: Color
+    var backgroundColor: Color
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            Text(text)
+            .frame(width: UIScreen.main.bounds.width - 32, height: 48)
+            .foregroundStyle(foregroundColor)
+            .background(backgroundColor)
+            .cornerRadius(10)
+            .padding(.vertical)
     }
 }
 
 #Preview {
-    LoginButton()
+    LoginButton(text: "SIGN IN", foregroundColor: .white, backgroundColor: Color(.systemBlue))
 }

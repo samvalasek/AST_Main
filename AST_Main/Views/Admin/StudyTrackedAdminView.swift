@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct StudyTrackedAdminView: View {
+    let user: User
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            
+        }
     }
 }
 
 #Preview {
-    StudyTrackedAdminView()
+    StudyTrackedAdminView(user: User.MOCK_USERS[0])
 }

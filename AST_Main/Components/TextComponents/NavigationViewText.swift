@@ -8,11 +8,29 @@
 import SwiftUI
 
 struct NavigationViewText: View {
+    /*
+     Variables
+     */
+    var systemImage: String
+    let title: String
+    let tintColor: Color
+    
+    /*
+     View
+     */
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            Image(systemName: systemImage)
+                .imageScale(.small)
+                .font(.title)
+                .foregroundStyle(tintColor)
+            Text(title)
+                .font(.subheadline)
+                .foregroundStyle(.black)
+        }
     }
 }
 
 #Preview {
-    NavigationViewText()
+    NavigationViewText(systemImage: "gear", title: "version", tintColor: Color(.systemGray))
 }
